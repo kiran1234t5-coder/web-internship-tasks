@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap");
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hidden {
+  display: none;
+}
+.active-nav {
+  color: #ef4444;
+  border-bottom: 2px solid #ef4444;
+}
+.banner-orange {
+  background: #fff7ed;
+  border-radius: 20px;
+}
+.banner-blue {
+  background: #eff6ff;
+  border-radius: 20px;
+  border-bottom: 4px solid #3b82f6;
+}
+.banner-pink {
+  background: #fdf2f8;
+  border-radius: 20px;
+}
+
+/* Smooth Fade Animation */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
