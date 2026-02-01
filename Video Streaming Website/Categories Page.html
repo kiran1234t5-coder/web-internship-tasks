@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | StreamHub Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00f2fe; /* Home page blue theme */
+            --secondary: #4facfe;
+            --bg: #030303;
+            --surface: #111;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* --- Header (Same as Home) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            color: #fff;
+            letter-spacing: -1px;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--glass);
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 200px;
+        }
+
+        .search-wrapper input {
+            background: none;
+            border: none;
+            color: #fff;
+            outline: none;
+            margin-left: 10px;
+            width: 100%;
+        }
+
+        .mobile-btn {
+            display: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: #080808;
+            z-index: 2000;
+            transition: 0.4s;
+            padding: 40px 20px;
+        }
+
+        .sidebar.active { left: 0; }
+        .sidebar-links { list-style: none; margin-top: 30px; }
+        .sidebar-links li { margin-bottom: 20px; }
+        .sidebar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active { display: block; }
+
+        /* --- Categories Specific Styling --- */
+        .category-header {
+            padding: 40px 5% 20px;
+            text-align: center;
+        }
+
+        .category-bar {
+            padding: 10px 5% 30px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            justify-content: center;
+        }
+
+        .category-bar::-webkit-scrollbar { display: none; }
+
+        .pill {
+            padding: 10px 25px;
+            background: var(--surface);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #222;
+            white-space: nowrap;
+        }
+
+        .pill.active, .pill:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        /* --- Grid --- */
+        .container { padding: 0 5% 60px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.1);
+        }
+
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-body h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .genre-tag { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; }
+
+        /* --- Footer (Same as Home) --- */
+        footer {
+            background: #080808;
+            padding: 80px 5% 40px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-about p { color: var(--text-dim); font-size: 0.9rem; margin: 20px 0; max-width: 300px; }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a {
+            width: 40px; height: 40px;
+            background: var(--glass);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; color: #fff; text-decoration: none; transition: 0.3s;
+        }
+        .social-icons a:hover { background: var(--primary); color: #000; }
+
+        .footer-links h4 { margin-bottom: 25px; font-size: 1.1rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary); padding-left: 5px; }
+
+        .footer-bottom {
+            margin-top: 60px; padding-top: 25px;
+            border-top: 1px solid #1a1a1a; text-align: center;
+            color: #444; font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-btn { display: block; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .category-bar { justify-content: flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-bars-staggered mobile-btn" onclick="toggleMenu()"></i>
+            <a href="index.html" class="logo">Stream<span>Hub</span></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="Categories.html" class="active"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+            <li><a href="trending.html"><i class="fa-solid fa-fire-flame-curved"></i> Trending</a></li>
+            <li><a href="MyList.html"><i class="fa-solid fa-heart"></i> My List</a></li>
+            <li><a href="Contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+        </ul>
+
+        <div class="search-wrapper">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Search movies..." id="movieSearch" onkeyup="filterMovies()">
+        </div>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <h2 class="logo" style="margin-bottom: 30px;">Stream<span>Hub</span></h2>
+        <ul class="sidebar-links">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="Categories.html"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+            <li><a href="trending.html"><i class="fa-solid fa-fire-flame-curved"></i> Trending</a></li>
+            <li><a href="MyList.html"><i class="fa-solid fa-heart"></i> My List</a></li>
+            <li><a href="Contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="category-header">
+        <h1>Browse by <span style="color: var(--primary);">Genre</span></h1>
+    </div>
+
+    <div class="category-bar">
+        <div class="pill active" onclick="filterGenre('All')">All</div>
+        <div class="pill" onclick="filterGenre('Action')">Action</div>
+        <div class="pill" onclick="filterGenre('Sci-Fi')">Sci-Fi</div>
+        <div class="pill" onclick="filterGenre('Horror')">Horror</div>
+        <div class="pill" onclick="filterGenre('Comedy')">Comedy</div>
+        <div class="pill" onclick="filterGenre('Animation')">Animation</div>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="movieGrid">
+            </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <a href="#" class="logo">Stream<span>Hub</span></a>
+                <p>Your ultimate destination for the latest movies and TV shows. Experience cinema like never before.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">Originals</a></li>
+                    <li><a href="#">Trending</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Download App</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-apple"></i> App Store</a></li>
+                    <li><a href="#"><i class="fab fa-google-play"></i> Play Store</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 StreamHub Ultra. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const movieData = [
+            { title: "John Wick 4", genre: "Action", img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=500" },
+            { title: "Interstellar", genre: "Sci-Fi", img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=500" },
+            { title: "The Conjuring", genre: "Horror", img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=500" },
+            { title: "Dune", genre: "Sci-Fi", img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500" },
+            { title: "Super Mario", genre: "Animation", img: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=500" },
+            { title: "The Hangover", genre: "Comedy", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500" },
+            { title: "Extraction 2", genre: "Action", img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500" },
+            { title: "Blade Runner", genre: "Sci-Fi", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" }
+        ];
+
+        function displayMovies(movies) {
+            const grid = document.getElementById('movieGrid');
+            grid.innerHTML = movies.map(m => `
+                <div class="card">
+                    <img src="${m.img}" alt="${m.title}">
+                    <div class="card-body">
+                        <span class="genre-tag">${m.genre}</span>
+                        <h4>${m.title}</h4>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGenre(genre) {
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if(genre === 'All') displayMovies(movieData);
+            else displayMovies(movieData.filter(m => m.genre === genre));
+        }
+
+        function filterMovies() {
+            const val = document.getElementById('movieSearch').value.toLowerCase();
+            displayMovies(movieData.filter(m => m.title.toLowerCase().includes(val)));
+        }
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        displayMovies(movieData);
+    </script>
+</body>
+
+</html>
