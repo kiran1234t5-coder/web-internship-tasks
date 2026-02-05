@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythical Explorer | Pro Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo" onclick="showSection('home')"> Myth Explorer</div>
+        <ul class="nav-links" id="navLinks">
+            <li onclick="showSection('home')">Home</li>
+            <li onclick="showSection('creatures')">Creatures</li>
+            <li onclick="alert('Library coming soon!')">Library</li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="active">
+            <h2>Explore the Unknown</h2>
+            <p>Discover the secrets of mythical creatures from all around the world. Track your progress as you learn
+                about dragons, sea monsters, and divine beings.</p>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText" style="font-size: 0.9rem; font-weight: 600;">0% Explored</p>
+            </div>
+        </section>
+
+        <section id="creatures">
+            <h2 style="margin-bottom: 30px; text-align: center;">Legendary Beings</h2>
+            <div class="creatures-grid" id="creaturesGrid"></div>
+        </section>
+    </main>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImg" src="">
+            <h2 id="modalTitle" style="color: var(--secondary);"></h2>
+            <p id="modalDesc" style="margin-top: 15px; opacity: 0.9; line-height: 1.6;"></p>
+            <button class="close-btn" onclick="closeModal()">Got it!</button>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-weight: 600; color: var(--secondary);">Mythical Explorer</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2026 Myth Explorer Labs. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

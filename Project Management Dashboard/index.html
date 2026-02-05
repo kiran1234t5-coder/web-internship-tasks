@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ProPulse Elite | Professional 3D Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark">
+<div class="bg-orb"></div>
+
+<div id="login-screen">
+  <div class="login-card">
+    <div style="font-size: 60px; margin-bottom: 10px; transform: translateZ(60px);">🛰️</div>
+    <h1>PROPULSE <span style="font-weight: 400; opacity: 0.6;">3D</span></h1>
+    <p style="opacity: 0.5; margin-top: 10px; font-size: 14px;">Luxury Management Interface</p>
+    <button class="pro-btn" onclick="unlock()">Launch System</button>
+  </div>
+</div>
+
+<div id="app-content">
+  <header>
+    <h2 style="font-weight: 800; letter-spacing: -1px;">CORE <span style="color:var(--accent)">SYSTEM</span></h2>
+    <div style="display:flex; gap:12px;">
+      <button onclick="toggleTheme()" style="background:none; border:1px solid var(--border); padding:10px; border-radius:12px; cursor:pointer;">🌓</button>
+      <button onclick="logout()" style="background:none; border:none; color:#666; font-weight:700; cursor:pointer;">Exit</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="action-panel">
+      <div class="grid-inputs">
+        <input id="pName" placeholder="Project Title">
+        <select id="pPrio">
+          <option value="high">Urgent</option>
+          <option value="medium" selected>Standard</option>
+          <option value="low">Low Priority</option>
+        </select>
+        <input id="pDate" type="date">
+        <select id="pStat">
+          <option value="pending">Pending</option>
+          <option value="in-progress">Doing</option>
+          <option value="completed">Done</option>
+        </select>
+        <button class="pro-btn" style="margin:0; padding:12px;" onclick="addProject()">+ Add Module</button>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:15px; margin-bottom:30px;">
+        <input id="search" style="flex:2;" placeholder="🔍 Search components..." oninput="render()">
+        <select id="sort" style="flex:1;" onchange="render()">
+            <option value="asc">Deadline ↑</option>
+            <option value="desc">Deadline ↓</option>
+        </select>
+    </div>
+
+    <div class="projects-grid" id="grid"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

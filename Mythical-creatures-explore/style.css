@@ -1,0 +1,277 @@
+ /* ====== RESET & BASE ====== */
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: "Poppins", sans-serif;
+ }
+
+ :root {
+     --primary: #6c5ce7;
+     --secondary: #00cec9;
+     --dark: #13171b;
+     --card-bg: rgba(255, 255, 255, 0.07);
+     --transition: all 0.3s ease;
+ }
+
+ body {
+     background: linear-gradient(135deg, #1e272e, #2f3640);
+     color: white;
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+ }
+
+ /* ====== NAVBAR & HAMBURGER ====== */
+ nav {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 15px 5%;
+     background: rgba(0, 0, 0, 0.6);
+     backdrop-filter: blur(15px);
+     position: sticky;
+     top: 0;
+     z-index: 1000;
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ }
+
+ .logo {
+     font-size: 1.5rem;
+     font-weight: 600;
+     color: var(--secondary);
+     cursor: pointer;
+ }
+
+ .nav-links {
+     display: flex;
+     gap: 30px;
+     list-style: none;
+ }
+
+ .nav-links li {
+     cursor: pointer;
+     font-weight: 400;
+     transition: var(--transition);
+ }
+
+ .nav-links li:hover {
+     color: var(--secondary);
+ }
+
+ /* Hamburger Icon */
+ .hamburger {
+     display: none;
+     flex-direction: column;
+     gap: 5px;
+     cursor: pointer;
+     z-index: 1001;
+ }
+
+ .hamburger span {
+     width: 25px;
+     height: 3px;
+     background: white;
+     border-radius: 5px;
+     transition: var(--transition);
+ }
+
+ /* ====== SECTIONS ====== */
+ main {
+     flex: 1;
+ }
+
+ section {
+     display: none;
+     padding: 60px 5%;
+     max-width: 1200px;
+     margin: auto;
+     animation: fadeIn 0.5s ease-out;
+ }
+
+ section.active {
+     display: block;
+ }
+
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+         transform: translateY(15px);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
+
+ /* ====== HOME PAGE ====== */
+ #home {
+     text-align: center;
+ }
+
+ #home h2 {
+     font-size: clamp(2rem, 5vw, 3.5rem);
+     margin-bottom: 20px;
+     color: var(--secondary);
+ }
+
+ #home p {
+     max-width: 800px;
+     margin: 0 auto 40px;
+     line-height: 1.8;
+     opacity: 0.8;
+ }
+
+ /* Progress Bar */
+ .progress-container {
+     background: var(--card-bg);
+     padding: 20px;
+     border-radius: 15px;
+     max-width: 450px;
+     margin: 0 auto;
+ }
+
+ .progress-bar {
+     height: 12px;
+     background: #3d464d;
+     border-radius: 10px;
+     overflow: hidden;
+     margin-bottom: 10px;
+ }
+
+ .progress-fill {
+     height: 100%;
+     width: 0%;
+     background: linear-gradient(90deg, var(--primary), var(--secondary));
+     transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ }
+
+ /* ====== CREATURES GRID ====== */
+ .creatures-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+     gap: 25px;
+ }
+
+ .card {
+     background: var(--card-bg);
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     border-radius: 20px;
+     padding: 30px;
+     text-align: center;
+     transition: var(--transition);
+     cursor: pointer;
+ }
+
+ .card:hover {
+     background: rgba(255, 255, 255, 0.12);
+     transform: translateY(-8px);
+     border-color: var(--secondary);
+ }
+
+ .card img {
+     width: 90px;
+     height: 90px;
+     margin-bottom: 15px;
+     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+ }
+
+ /* ====== MODAL ====== */
+ .modal {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.9);
+     display: none;
+     justify-content: center;
+     align-items: center;
+     z-index: 2000;
+     padding: 20px;
+ }
+
+ .modal-content {
+     background: #252d35;
+     padding: 40px;
+     border-radius: 25px;
+     max-width: 550px;
+     text-align: center;
+     position: relative;
+     border: 1px solid var(--secondary);
+ }
+
+ .modal-content img {
+     width: 120px;
+     margin-bottom: 20px;
+ }
+
+ .close-btn {
+     margin-top: 25px;
+     padding: 12px 40px;
+     background: var(--secondary);
+     border: none;
+     border-radius: 50px;
+     color: var(--dark);
+     font-weight: 600;
+     cursor: pointer;
+ }
+
+ /* ====== FOOTER ====== */
+ footer {
+     background: #0d1114;
+     padding: 40px 5%;
+     text-align: center;
+     border-top: 1px solid rgba(255, 255, 255, 0.1);
+ }
+
+ .footer-links {
+     margin: 15px 0;
+ }
+
+ .footer-links a {
+     color: #888;
+     text-decoration: none;
+     margin: 0 10px;
+     font-size: 0.9rem;
+ }
+
+ .footer-links a:hover {
+     color: var(--secondary);
+ }
+
+ /* ====== MOBILE RESPONSIVE ====== */
+ @media (max-width: 768px) {
+     .hamburger {
+         display: flex;
+     }
+
+     .nav-links {
+         position: fixed;
+         top: 70px;
+         right: -100%;
+         width: 70%;
+         height: calc(100vh - 70px);
+         background: rgba(20, 20, 20, 0.95);
+         flex-direction: column;
+         align-items: center;
+         padding-top: 50px;
+         transition: 0.4s;
+         backdrop-filter: blur(10px);
+     }
+
+     .nav-links.active {
+         right: 0;
+     }
+
+     /* Hamburger Animation */
+     .hamburger.active span:nth-child(1) {
+         transform: rotate(45deg) translate(5px, 6px);
+     }
+
+     .hamburger.active span:nth-child(2) {
+         opacity: 0;
+     }
+
+     .hamburger.active span:nth-child(3) {
+         transform: rotate(-45deg) translate(5px, -6px);
+     }
+ }

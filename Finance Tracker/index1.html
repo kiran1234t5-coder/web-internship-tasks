@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIT-KIRAN | Ultimate Terminal</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+        :root {
+            --bg: #000000;
+            --panel: #0d0d0d;
+            --card: #161616;
+            --accent: #fcd535;
+            --text: #ffffff;
+            --dim: #777777;
+            --up: #00ffa3;
+            --down: #ff4d4d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+
+        /* --- DESKTOP SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background: var(--bg);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            border-right: 1px solid #1a1a1a;
+        }
+
+        /* --- MOBILE TOP NAV --- */
+        .mobile-top-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--panel);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+            padding: 10px 5px;
+        }
+
+        .nav-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            scrollbar-width: none;
+            padding: 5px;
+        }
+
+        .nav-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item,
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--dim);
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .nav-item.active,
+        .nav-tab.active {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* --- MAIN AREA --- */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111;
+            margin-top: 0;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100%;
+            flex: 1;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--panel);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .coin-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .coin-card {
+            min-width: 140px;
+            background: var(--card);
+            padding: 15px;
+            border-radius: 20px;
+            border: 1px solid #222;
+            cursor: pointer;
+        }
+
+        .chart-box {
+            height: 250px;
+            width: 100%;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-buy {
+            background: var(--up);
+            color: #000;
+        }
+
+        .btn-sell {
+            background: var(--down);
+            color: #fff;
+        }
+
+        /* --- RESPONSIVE FIXES --- */
+        @media (max-width: 850px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .mobile-top-nav {
+                display: block;
+            }
+
+            header {
+                margin-top: 70px;
+                padding: 15px;
+            }
+
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                padding: 15px 15px 40px 15px;
+            }
+        }
+
+        .jetbrains {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .up {
+            color: var(--up);
+        }
+
+        .down {
+            color: var(--down);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mobile-top-nav">
+        <div class="nav-scroll">
+            <div class="nav-tab active" onclick="nav('home', this)"><i data-lucide="layout-grid" size="18"></i> Home
+            </div>
+            <div class="nav-tab" onclick="nav('assets', this)"><i data-lucide="wallet" size="18"></i> Assets</div>
+            <div class="nav-tab" onclick="nav('trade', this)"><i data-lucide="arrow-left-right" size="18"></i> Trade
+            </div>
+            <div class="nav-tab" onclick="nav('history', this)"><i data-lucide="history" size="18"></i> History</div>
+            <div class="nav-tab" onclick="nav('market', this)"><i data-lucide="bar-chart-2" size="18"></i> Market</div>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 30px;">
+            <div
+                style="width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: grid; place-items: center; color: #000; font-weight: 900;">
+                BK</div>
+            <b style="font-size: 20px; letter-spacing: -1px;">Bitcoin </b>
+        </div>
+        <nav style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="nav-item active" onclick="nav('home', this)"><i data-lucide="layout-grid"></i> Dashboard</div>
+            <div class="nav-item" onclick="nav('assets', this)"><i data-lucide="wallet"></i> Assets</div>
+            <div class="nav-item" onclick="nav('trade', this)"><i data-lucide="arrow-left-right"></i> Trade</div>
+            <div class="nav-item" onclick="nav('history', this)"><i data-lucide="history"></i> History</div>
+            <div class="nav-item" onclick="nav('market', this)"><i data-lucide="bar-chart-2"></i> Market</div>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <header>
+            <div>
+                <h3 id="page-title">Dashboard</h3>
+                <small id="clock" class="jetbrains" style="color: var(--accent);">00:00:00</small>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="text-align: right; line-height: 1;">
+                    <small style="color: var(--dim); font-size: 10px;">PRO MEMBER</small><br>
+                    <b style="font-size: 13px;">Kiran Admin</b>
+                </div>
+                <div
+                    style="width: 40px; height: 40px; background: #222; border: 1px solid #333; border-radius: 50%; display: grid; place-items: center;">
+                    <i data-lucide="user" size="20"></i>
+                </div>
+            </div>
+        </header>
+
+        <div id="home" class="page active">
+            <div class="grid-layout">
+                <div class="left-col">
+                    <div class="card">
+                        <p style="color: var(--dim); font-size: 12px; font-weight: 700;">TOTAL ESTIMATED BALANCE</p>
+                        <h2 class="jetbrains" style="font-size: clamp(24px, 6vw, 36px); margin: 5px 0;">$412,850.66</h2>
+                        <span class="up" style="font-size: 12px; font-weight: 800;">+$12,402.10 (24h) ▲</span>
+                    </div>
+
+                    <div class="coin-row">
+                        <div class="coin-card" onclick="changeChart('BTC', 64000)"><b>BTC</b>
+                            <div class="jetbrains">$64,210</div><small class="up">+2.4%</small>
+                        </div>
+                        <div class="coin-card" onclick="changeChart('ETH', 3400)"><b>ETH</b>
+                            <div class="jetbrains">$3,450</div><small class="down">-1.2%</small>
+                        </div>
+                        <div class="coin-card" onclick="changeChart('SOL', 145)"><b>SOL</b>
+                            <div class="jetbrains">$145.20</div><small class="up">+8.1%</small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <b id="active-coin">Market Trend</b>
+                            <select style="background: #000; color: white; border: none; font-size: 12px;">
+                                <option>24 Hours</option>
+                                <option>7 Days</option>
+                            </select>
+                        </div>
+                        <div class="chart-box"><canvas id="mainChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="right-col">
+                    <div class="card" style="background: linear-gradient(45deg, #fcd535, #ffb300); color: #000;">
+                        <h3>Active Staking</h3>
+                        <p class="jetbrains" style="font-size: 24px; font-weight: 800; margin: 10px 0;">$12,000.00</p>
+                        <small style="font-weight: 700;">APY: 12.5% Yearly</small>
+                    </div>
+                    <div class="card">
+                        <b>Live News Feed</b>
+                        <div id="news-feed" style="margin-top: 15px; font-size: 13px; color: var(--dim);">
+                            <p style="margin-bottom: 10px;">• BTC price stabilizes above $64k.</p>
+                            <p>• New Layer-2 solution launched on ETH.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="assets" class="page">
+            <div class="card">
+                <h3>Asset Allocation</h3>
+                <div id="asset-list" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div id="trade" class="page">
+            <div class="card" style="max-width: 500px; margin: auto;">
+                <h3 style="text-align: center;">Instant Swap</h3>
+                <div style="margin-top: 25px;">
+                    <div style="background: #000; padding: 15px; border-radius: 15px; border: 1px solid #333;">
+                        <small style="color: var(--dim);">Sell</small>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <input type="number" value="1.0" class="jetbrains"
+                                style="background: transparent; border: none; color: white; font-size: 20px; width: 60%;">
+                            <b>USDT</b>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 10px 0;"><i data-lucide="arrow-down"
+                            style="color: var(--accent);"></i></div>
+                    <div style="background: #000; padding: 15px; border-radius: 15px; border: 1px solid #333;">
+                        <small style="color: var(--dim);">Buy (Estimated)</small>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <input type="text" value="0.000015" class="jetbrains" readonly
+                                style="background: transparent; border: none; color: white; font-size: 20px; width: 60%;">
+                            <b>BTC</b>
+                        </div>
+                    </div>
+                    <button class="btn-action btn-buy" onclick="alert('Success: Swap Completed')">CONFIRM SWAP</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="history" class="page">
+            <div class="card">
+                <h3>Transaction Logs</h3>
+                <div id="hist-list" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+
+        <div id="market" class="page">
+            <div class="card">
+                <h3>Global Market Cap</h3>
+                <div style="margin-top: 20px;">
+                    <p class="jetbrains" style="font-size: 20px;">$2.41 Trillion <span class="up"
+                            style="font-size: 14px;">+1.2%</span></p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <tr style="color: var(--dim); font-size: 12px; border-bottom: 1px solid #222;">
+                            <th align="left" style="padding: 10px 0;">Name</th>
+                            <th align="right">Price</th>
+                            <th align="right">Change</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px 0;">Binance Coin</td>
+                            <td align="right" class="jetbrains">$590</td>
+                            <td align="right" class="up">+0.5%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px 0;">Cardano</td>
+                            <td align="right" class="jetbrains">$0.45</td>
+                            <td align="right" class="down">-2.1%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. Navigation Engine
+        function nav(pageId, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item, .nav-tab').forEach(n => n.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('page-title').innerText = pageId.toUpperCase();
+
+            // Highlight current element
+            const items = document.querySelectorAll(`[onclick*="'${pageId}'"]`);
+            items.forEach(item => item.classList.add('active'));
+
+            // Scroll top nav to active item on mobile
+            if (window.innerWidth <= 850 && el) {
+                el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        // 2. Dynamic Data
+        const assets = [
+            { n: 'Bitcoin', s: 'BTC', b: '1.2488', v: '$80,210', p: '60%' },
+            { n: 'Ethereum', s: 'ETH', b: '15.500', v: '$53,475', p: '25%' },
+            { n: 'Solana', s: 'SOL', b: '142.10', v: '$20,632', p: '10%' },
+            { n: 'USDT', s: 'Stable', b: '5,000', v: '$5,000', p: '5%' }
+        ];
+        document.getElementById('asset-list').innerHTML = assets.map(a => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding: 18px 0; border-bottom: 1px solid #222;">
+                <div><b>${a.n}</b> <small style="color:var(--dim)">${a.s}</small><br><span style="font-size:12px; color:var(--accent)">${a.p} of portfolio</span></div>
+                <div style="text-align:right"><div class="jetbrains">${a.v}</div><small style="color:var(--dim)">${a.b} Units</small></div>
+            </div>
+        `).join('');
+
+        const transactions = [
+            { t: 'Deposit USDT', d: 'Jan 18, 2026', a: '+$10,000', s: 'up' },
+            { t: 'Swap BTC/USDT', d: 'Jan 15, 2026', a: '-0.02 BTC', s: 'down' },
+            { t: 'Staking Reward', d: 'Jan 14, 2026', a: '+$12.40', s: 'up' },
+            { t: 'Withdrawal SOL', d: 'Jan 12, 2026', a: '-5.00 SOL', s: 'down' }
+        ];
+        document.getElementById('hist-list').innerHTML = transactions.map(t => `
+            <div style="display:flex; justify-content:space-between; padding: 15px 0; border-bottom: 1px solid #222;">
+                <div><b>${t.t}</b><br><small style="color:var(--dim)">${t.d}</small></div>
+                <b class="${t.s} jetbrains">${t.a}</b>
+            </div>
+        `).join('');
+
+        // 3. Chart Initialization
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        let mainChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['12am', '4am', '8am', '12pm', '4pm', '8pm'],
+                datasets: [{
+                    data: [61000, 62500, 62000, 64500, 63800, 64210],
+                    borderColor: '#fcd535',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointRadius: 2,
+                    fill: true,
+                    backgroundColor: 'rgba(252, 213, 53, 0.05)'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#111' } } } }
+        });
+
+        function changeChart(coin, base) {
+            document.getElementById('active-coin').innerText = coin + " Price History";
+            mainChart.data.datasets[0].data = Array.from({ length: 6 }, () => base + (Math.random() * 2000 - 1000));
+            mainChart.update();
+        }
+
+        // 4. Utilities
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+        }, 1000);
+    </script>
+</body>
+
+</html>

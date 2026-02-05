@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIT-KIRAN Pro | Terminal</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+        :root {
+            --bg: #000000;
+            --panel: #0d0d0d;
+            --card: #161616;
+            --accent: #fcd535;
+            --text: #ffffff;
+            --dim: #888888;
+            --up: #00ffa3;
+            --down: #ff4d4d;
+            --border: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; display: flex; }
+
+        .main { flex: 1; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* Fixed Header */
+        header { 
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
+            background: #000; border-bottom: 1px solid #111; flex-shrink: 0;
+        }
+
+        /* Scrollable Content */
+        .content-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 100px; }
+
+        .page { display: none; animation: fadeIn 0.4s ease-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Modern UI Elements */
+        .card { background: var(--panel); border-radius: 20px; padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
+        .section-title { font-size: 14px; font-weight: 700; color: var(--dim); margin: 15px 0 10px 5px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .coin-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .coin-row::-webkit-scrollbar { display: none; }
+        .coin-card { min-width: 140px; background: var(--card); padding: 15px; border-radius: 18px; border: 1px solid #222; flex-shrink: 0; transition: 0.2s; }
+        .coin-card.selected { border-color: var(--accent); background: rgba(252, 213, 53, 0.05); }
+
+        .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        .stat-box { background: var(--card); padding: 15px; border-radius: 15px; border: 1px solid #1a1a1a; }
+
+        .news-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #111; }
+        .news-img { width: 60px; height: 60px; background: #222; border-radius: 10px; flex-shrink: 0; }
+
+        /* Tables & Lists */
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 15px 5px; border-bottom: 1px solid #111; font-size: 14px; }
+        th { text-align: left; color: var(--dim); font-size: 10px; padding: 10px 5px; }
+
+        /* Navigation */
+        .mobile-nav { 
+            position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 10, 0.95); 
+            backdrop-filter: blur(20px); border-top: 1px solid #222; z-index: 1000; 
+            padding: 12px 0; display: flex; justify-content: space-around; 
+        }
+        .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--dim); cursor: pointer; }
+        .nav-tab.active { color: var(--accent); }
+        .nav-tab span { font-size: 10px; font-weight: 600; }
+
+        .up { color: var(--up); } .down { color: var(--down); }
+        .jetbrains { font-family: 'JetBrains Mono', monospace; }
+        .badge { font-size: 9px; padding: 2px 6px; border-radius: 4px; background: #222; color: var(--dim); margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+    <main class="main">
+        <header>
+            <div>
+                <h2 id="page-title" style="font-size: 18px; font-weight: 800;">DASHBOARD</h2>
+                <small id="clock" class="jetbrains" style="color: var(--accent); font-size: 11px;">00:00:00</small>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <div style="width: 35px; height: 35px; background: #1a1a1a; border-radius: 10px; display: grid; place-items: center;"><i data-lucide="bell" size="18"></i></div>
+                <div style="width: 35px; height: 35px; background: var(--accent); border-radius: 10px; display: grid; place-items: center; color: #000;"><i data-lucide="user" size="18"></i></div>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <div id="home" class="page active">
+                <div class="card" style="background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <p style="color: var(--dim); font-size: 10px; font-weight: 700;">TOTAL EQUITY</p>
+                            <h1 class="jetbrains" style="font-size: 32px; margin: 5px 0;">$412,850.66</h1>
+                            <span class="up" style="font-size: 12px; font-weight: 700;">+$12,402.10 (24h)</span>
+                        </div>
+                        <i data-lucide="trending-up" class="up"></i>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="stat-box">
+                        <small style="color:var(--dim)">Profit/Loss</small>
+                        <div class="up jetbrains" style="font-weight:700; margin-top:5px;">+$4,210</div>
+                    </div>
+                    <div class="stat-box">
+                        <small style="color:var(--dim)">Active Margin</small>
+                        <div class="jetbrains" style="font-weight:700; margin-top:5px;">$25,000</div>
+                    </div>
+                </div>
+
+                <div class="section-title">Market Pulse</div>
+                <div class="coin-row" id="coin-list-row"></div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <b id="active-coin-title">Bitcoin</b>
+                        <div style="text-align: right;">
+                            <span id="active-coin-price" class="jetbrains up" style="font-weight: 800;">$64,210</span><br>
+                            <small class="badge">Live Terminal</small>
+                        </div>
+                    </div>
+                    <div style="height: 180px; margin-top: 15px;"><canvas id="mainChart"></canvas></div>
+                </div>
+
+                <div class="section-title">Recent Activity</div>
+                <div class="card" id="activity-list"></div>
+            </div>
+
+            <div id="market" class="page">
+                <div class="section-title">Top Gainers 🔥</div>
+                <div class="card" style="padding: 10px 15px;">
+                    <table id="gainers-table"></table>
+                </div>
+
+                <div class="section-title">Global News</div>
+                <div class="card" id="news-list"></div>
+            </div>
+
+            <div id="trade" class="page">
+                <div class="card">
+                    <h3>Advanced Swap</h3>
+                    <div style="margin-top:20px;">
+                        <label style="font-size:10px; color:var(--dim)">FROM</label>
+                        <div style="display:flex; justify-content:space-between; padding:15px; background:#000; border-radius:12px; margin:5px 0;">
+                            <input type="number" value="1.0" class="jetbrains" style="background:transparent; border:none; color:#fff; font-size:20px; width:60%;">
+                            <select style="background:transparent; border:none; color:var(--accent); font-weight:700;"><option>BTC</option><option>ETH</option></select>
+                        </div>
+                        <div style="text-align:center; margin:-10px 0; position:relative; z-index:5;"><div style="background:var(--accent); width:30px; height:30px; border-radius:50%; margin:auto; display:grid; place-items:center; color:#000;"><i data-lucide="arrow-down" size="14"></i></div></div>
+                        <label style="font-size:10px; color:var(--dim)">TO</label>
+                        <div style="display:flex; justify-content:space-between; padding:15px; background:#000; border-radius:12px; margin:5px 0;">
+                            <input type="number" value="64210" readonly class="jetbrains" style="background:transparent; border:none; color:#fff; font-size:20px; width:60%;">
+                            <select style="background:transparent; border:none; color:var(--accent); font-weight:700;"><option>USDT</option></select>
+                        </div>
+                        <button style="width:100%; background:var(--accent); color:#000; border:none; padding:18px; border-radius:15px; margin-top:20px; font-weight:900;">EXECUTE ORDER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <div class="nav-tab active" onclick="nav('home', this)"><i data-lucide="layout-grid" size="20"></i><span>Home</span></div>
+        <div class="nav-tab" onclick="nav('market', this)"><i data-lucide="bar-chart-2" size="20"></i><span>Market</span></div>
+        <div class="nav-tab" onclick="nav('trade', this)"><i data-lucide="arrow-left-right" size="20"></i><span>Trade</span></div>
+    </nav>
+
+    <script>
+        lucide.createIcons();
+
+        const coins = [
+            { id: 'btc', name: 'Bitcoin', symbol: 'BTC', price: 64210, change: '+2.4%', color: '#fcd535', history: [62, 65, 63, 66, 64] },
+            { id: 'eth', name: 'Ethereum', symbol: 'ETH', price: 3450, change: '-1.2%', color: '#627eea', history: [32, 36, 34, 35, 33] },
+            { id: 'sol', name: 'Solana', symbol: 'SOL', price: 145.2, change: '+8.1%', color: '#14f195', history: [110, 150, 130, 160, 145] },
+            { id: 'bnb', name: 'Binance', symbol: 'BNB', price: 592.0, change: '+0.5%', color: '#f3ba2f', history: [580, 595, 585, 600, 592] }
+        ];
+
+        function nav(pageId, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            el.classList.add('active');
+            document.getElementById('page-title').innerText = pageId.toUpperCase();
+        }
+
+        function init() {
+            // Render Coins
+            document.getElementById('coin-list-row').innerHTML = coins.map((c, i) => `
+                <div class="coin-card ${i===0?'selected':''}" onclick="selectCoin('${c.id}', this)">
+                    <small style="color:var(--dim)">${c.symbol}</small>
+                    <div class="jetbrains" style="font-weight:700; margin: 4px 0;">$${c.price}</div>
+                    <small class="${c.change.includes('+')?'up':'down'}">${c.change}</small>
+                </div>
+            `).join('');
+
+            // Render Activity
+            const activities = [
+                { title: 'Buy BTC', amt: '0.002 BTC', time: '2 mins ago', icon: 'shopping-cart' },
+                { title: 'Received ETH', amt: '1.50 ETH', time: '1 hour ago', icon: 'arrow-down-left' }
+            ];
+            document.getElementById('activity-list').innerHTML = activities.map(a => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <div style="width:30px; height:30px; background:#222; border-radius:8px; display:grid; place-items:center;"><i data-lucide="${a.icon}" size="14"></i></div>
+                        <div><b style="font-size:13px">${a.title}</b><br><small style="color:var(--dim)">${a.time}</small></div>
+                    </div>
+                    <div class="jetbrains" style="font-size:13px">${a.amt}</div>
+                </div>
+            `).join('');
+
+            // Render Gainers
+            document.getElementById('gainers-table').innerHTML = coins.map(c => `
+                <tr>
+                    <td><b>${c.symbol}</b> <small style="color:var(--dim)">${c.name}</small></td>
+                    <td class="jetbrains">$${c.price}</td>
+                    <td class="up jetbrains" style="text-align:right">+${Math.random().toFixed(2)}%</td>
+                </tr>
+            `).join('');
+
+            // News Feed
+            const news = [
+                { title: 'Market Analysis: BTC ready for $70k breakout?', source: 'CryptoDaily' },
+                { title: 'SEC updates on Ethereum ETF Approval', source: 'FinanceWire' }
+            ];
+            document.getElementById('news-list').innerHTML = news.map(n => `
+                <div class="news-item">
+                    <div class="news-img"></div>
+                    <div><b style="font-size:12px">${n.title}</b><br><small style="color:var(--dim)">${n.source}</small></div>
+                </div>
+            `).join('');
+            
+            lucide.createIcons();
+            initChart();
+        }
+
+        let mainChart;
+        function initChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            mainChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5],
+                    datasets: [{
+                        data: coins[0].history,
+                        borderColor: '#fcd535',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        fill: true,
+                        backgroundColor: 'rgba(252, 213, 53, 0.1)'
+                    }]
+                },
+                options: { 
+                    responsive: true, maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } }
+                }
+            });
+        }
+
+        function selectCoin(id, el) {
+            document.querySelectorAll('.coin-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            const coin = coins.find(c => c.id === id);
+            document.getElementById('active-coin-title').innerText = coin.name;
+            document.getElementById('active-coin-price').innerText = `$${coin.price}`;
+            mainChart.data.datasets[0].data = coin.history;
+            mainChart.data.datasets[0].borderColor = coin.color;
+            mainChart.update();
+        }
+
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+        }, 1000);
+
+        init();
+    </script>
+</body>
+</html>
