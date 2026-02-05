@@ -1,0 +1,95 @@
+:root {
+    --bg: #000000;
+    --panel: #0d0d0d;
+    --card: #151515;
+    --accent: #fcd535;
+    --text: #ffffff;
+    --dim: #777777;
+    --green: #0ecb81;
+    --red: #f6465d;
+    --border: #222;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
+
+.hidden { display: none !important; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.brand-color { color: var(--accent); }
+.dim-text { color: var(--dim); }
+
+/* AUTH */
+.auth-container { position: fixed; inset: 0; background: var(--bg); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.auth-card { background: var(--panel); padding: 40px; border-radius: 35px; width: 100%; max-width: 400px; border: 1px solid var(--border); text-align: center; box-shadow: 0 0 50px rgba(252, 213, 53, 0.05); }
+.auth-input { width: 100%; background: #000; border: 1px solid #333; padding: 16px; border-radius: 12px; color: white; margin-bottom: 12px; outline: none; transition: 0.3s; }
+.auth-input:focus { border-color: var(--accent); }
+.auth-btn { width: 100%; background: var(--accent); color: #000; padding: 16px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
+.auth-footer { margin-top: 20px; font-size: 12px; color: var(--dim); }
+.accent-link { color: var(--accent); cursor: pointer; }
+
+/* APP LAYOUT */
+#main-app { display: none; height: 100vh; }
+.sidebar { width: 260px; background: #000; padding: 35px 20px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
+.sidebar-logo { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 40px; }
+.nav-item { padding: 14px 18px; border-radius: 15px; color: var(--dim); cursor: pointer; display: flex; align-items: center; gap: 12px; font-weight: 600; transition: 0.2s; }
+.nav-item.active, .nav-item:hover { background: #1a1a1a; color: var(--accent); }
+.logout-btn { margin-top: auto; color: var(--red); }
+
+.mobile-nav { display: none; background: #000; padding: 15px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; overflow-x: auto; gap: 15px; scrollbar-width: none; }
+.mobile-nav div { color: var(--dim); font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+.mobile-nav div.active { color: var(--accent); }
+
+.main-panel { flex: 1; padding: 25px; overflow-y: auto; background: var(--panel); margin: 15px; border-radius: 40px; border: 1px solid var(--border); }
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+#clock { font-family: 'JetBrains Mono'; color: var(--accent); font-weight: 800; font-size: 20px; }
+.date-text { font-size: 10px; color: var(--dim); }
+
+/* DASHBOARD COMPONENTS */
+.liquidity-section h1 { font-size: 45px; }
+.cents { color: var(--dim); font-size: 20px; }
+.label-small { color: var(--dim); font-size: 12px; font-weight: 800; }
+
+.asset-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+.mini-card { background: var(--card); padding: 15px; border-radius: 20px; border: 1px solid var(--border); }
+.mini-card p { color: var(--dim); font-size: 11px; }
+
+.lower-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
+.portfolio-box { background: var(--accent); color: #000; border-radius: 30px; padding: 25px; display: flex; flex-direction: column; gap: 15px; }
+.stat-row { display: flex; justify-content: space-between; }
+.total-assets { margin-top: auto; background: rgba(0,0,0,0.1); padding: 15px; border-radius: 15px; font-size: 12px; }
+.chart-box { background: #000; border-radius: 30px; padding: 25px; border: 1px solid var(--border); min-height: 350px; }
+
+/* TABLES & LISTS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 25px; padding: 25px; margin-bottom: 20px; }
+.data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.data-table th { color: var(--dim); text-align: left; padding: 12px; font-size: 12px; border-bottom: 1px solid #222; }
+.data-table td { padding: 15px 12px; border-bottom: 1px solid #111; font-family: 'JetBrains Mono'; font-size: 14px; }
+
+.log-item { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+.log-item p { font-size: 11px; color: var(--dim); }
+
+.promo-banner { background: linear-gradient(90deg, #fcd535, #ff9900); color: black; padding: 20px; border-radius: 20px; margin-top: 15px; }
+.promo-btn { margin-top: 10px; padding: 8px 15px; border: none; border-radius: 10px; background: black; color: white; font-size: 11px; cursor: pointer; }
+
+/* PROFILE */
+.profile-card { text-align: center; }
+.avatar { border-radius: 50%; border: 3px solid var(--accent); margin-bottom: 15px; }
+.info-list { margin-top: 30px; text-align: left; }
+.info-item { margin-bottom: 15px; }
+
+/* SETTINGS */
+.setting-row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.reset-btn { width: 100%; background: #222; color: white; padding: 16px; border-radius: 12px; border: none; cursor: pointer; }
+
+/* RESPONSIVENESS */
+@media (max-width: 1000px) {
+    #main-app { flex-direction: column; }
+    .sidebar { display: none; }
+    .mobile-nav { display: flex; }
+    .main-panel { margin: 0; border-radius: 0; border: none; }
+    .asset-grid { grid-template-columns: repeat(2, 1fr); }
+    .lower-layout { grid-template-columns: 1fr; }
+    .liquidity-section h1 { font-size: 35px; }
+}
