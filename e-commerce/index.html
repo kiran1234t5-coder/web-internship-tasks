@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>ELITE PRO | Ultra Premium 2026</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Syne:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1
+        style="
+          font-family: &quot;Syne&quot;;
+          font-size: 28px;
+          letter-spacing: -2px;
+          color: var(--p-light);
+          cursor: pointer;
+        "
+        onclick="Router.go('home')"
+      >
+        EP.
+      </h1>
+      <div class="search-box">
+        <input
+          type="text"
+          id="globalSearch"
+          placeholder="Search premium collection..."
+          oninput="Store.search(this.value)"
+        />
+      </div>
+      <button
+        class="btn btn-outline"
+        style="padding: 10px 15px"
+        onclick="UI.toggleTheme()"
+      >
+        🌓
+      </button>
+    </header>
+
+    <div id="v-home" class="view active">
+      <div class="hero" id="hero"></div>
+      <div class="container">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0 30px;
+          "
+        >
+          <h2 style="font-family: &quot;Syne&quot;; font-size: 32px">
+            Curated Collection
+          </h2>
+          <div id="catFilters" style="display: flex; gap: 12px"></div>
+        </div>
+        <div id="pGrid" class="grid"></div>
+      </div>
+    </div>
+
+    <div id="v-cart" class="view container">
+      <h1 style="margin: 50px 0; font-family: &quot;Syne&quot;">
+        Your Selection
+      </h1>
+      <div
+        style="display: grid; grid-template-columns: 1fr 380px; gap: 40px"
+        id="cartLayout"
+      >
+        <div id="cartItems"></div>
+        <div
+          class="card"
+          style="padding: 35px; height: fit-content; background: var(--surf-l)"
+        >
+          <h3 style="margin-bottom: 20px">Order Summary</h3>
+          <div style="margin: 20px 0; display: flex; gap: 10px">
+            <input
+              type="text"
+              id="coupon"
+              placeholder="Coupon: SAVE20"
+              style="
+                flex: 1;
+                padding: 12px;
+                background: var(--bg);
+                border: 1px solid var(--brd);
+                border-radius: 12px;
+                color: white;
+                outline: none;
+              "
+            />
+            <button
+              class="btn"
+              onclick="Store.applyCoupon()"
+              style="padding: 12px 20px"
+            >
+              Apply
+            </button>
+          </div>
+          <div
+            id="cartTotal"
+            style="border-top: 1px solid var(--brd); padding-top: 20px"
+          ></div>
+          <button
+            class="btn"
+            style="width: 100%; margin-top: 25px; padding: 18px"
+            onclick="Router.go('checkout')"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="v-admin" class="view container">
+      <h1 style="margin: 50px 0; font-family: &quot;Syne&quot;">
+        Business Overview
+      </h1>
+      <div
+        class="grid"
+        style="grid-template-columns: repeat(3, 1fr); margin-bottom: 50px"
+      >
+        <div
+          class="card"
+          style="padding: 30px; border-left: 4px solid var(--p)"
+        >
+          <h3>Total Revenue</h3>
+          <h1
+            id="revStat"
+            style="color: var(--p-light); font-size: 40px; margin-top: 10px"
+          >
+            $0
+          </h1>
+        </div>
+        <div
+          class="card"
+          style="padding: 30px; border-left: 4px solid var(--accent)"
+        >
+          <h3>Orders</h3>
+          <h1 id="saleStat" style="font-size: 40px; margin-top: 10px">0</h1>
+        </div>
+        <div class="card" style="padding: 30px; border-left: 4px solid #10b981">
+          <h3>Active Users</h3>
+          <h1 style="color: #10b981; font-size: 40px; margin-top: 10px">
+            1.2k
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>
+        <h3 style="color: var(--txt)">ELITE PRO.</h3>
+        <p style="color: var(--mut); max-width: 250px">
+          Redefining the digital shopping experience with premium aesthetics and
+          seamless performance.
+        </p>
+      </div>
+      <div>
+        <h3>Discover</h3>
+        <a>New Arrivals</a><a>Best Sellers</a><a>Elite Membership</a
+        ><a>Collections</a>
+      </div>
+      <div>
+        <h3>Support</h3>
+        <a>Track Order</a><a>Returns Policy</a><a>Premium Care</a
+        ><a>Global Shipping</a>
+      </div>
+      <div>
+        <h3>Social</h3>
+        <a>Instagram</a><a>X / Twitter</a><a>LinkedIn</a><a>YouTube</a>
+      </div>
+    </footer>
+
+    <nav class="bottom-bar">
+      <div class="nav-link active" onclick="Router.go('home', this)">
+        <i>🏠</i>Home
+      </div>
+      <div class="nav-link" onclick="Router.go('cart', this)">
+        <i>👜</i>Bag <span class="badge" id="cCount">0</span>
+      </div>
+      <div class="nav-link" onclick="Router.go('admin', this)">
+        <i>📈</i>Stats
+      </div>
+    </nav>
+
+    <div class="modal" id="pModal" onclick="UI.closeModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <div style="flex: 1.2; background: #000">
+          <img id="mImg" style="width: 100%; height: 100%; object-fit: cover" />
+        </div>
+        <div style="flex: 1; padding: 50px; overflow-y: auto">
+          <span
+            id="mCat"
+            style="
+              color: var(--p-light);
+              font-weight: 800;
+              letter-spacing: 2px;
+              font-size: 12px;
+            "
+          ></span>
+          <h1
+            id="mTitle"
+            style="
+              font-family: &quot;Syne&quot;;
+              margin: 15px 0;
+              font-size: 36px;
+            "
+          ></h1>
+          <div
+            id="mRating"
+            style="color: #fbbf24; margin-bottom: 25px; font-size: 14px"
+          ></div>
+          <h2
+            id="mPrice"
+            style="font-size: 32px; margin-bottom: 25px; color: var(--txt)"
+          >
+            $0
+          </h2>
+          <p style="color: var(--mut); margin-bottom: 40px; font-size: 16px">
+            Expertly crafted for those who appreciate the finer things. Limited
+            edition release featuring high-performance internals and premium
+            finish.
+          </p>
+          <button
+            class="btn"
+            style="width: 100%; padding: 20px; font-size: 16px"
+            id="mAdd"
+          >
+            Add To Bag
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
