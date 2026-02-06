@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Academy | Exclusive Events</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #d4af37;
+            --black: #0a0a0a;
+            --s-black: #151515;
+            --white: #ffffff;
+            --gray: #888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            z-index: 10000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            color: var(--gold);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Playfair Display';
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            transition: 0.5s;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a i {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .menu-icon {
+            display: none;
+            color: var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 45vh;
+            margin-top: 70px;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* --- EVENT CARDS --- */
+        .container {
+            padding: 60px 8%;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.4s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .img-box {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+
+        .card:hover .img-box img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .date-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gold);
+            color: black;
+            padding: 5px 12px;
+            font-weight: 800;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .content h3 {
+            font-family: 'Playfair Display';
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .content p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #222;
+            padding-top: 15px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* --- MODAL (DETAIL VIEW) --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-box {
+            background: #0f0f0f;
+            border: 1px solid var(--gold);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            border-radius: 15px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: var(--gold);
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #050505;
+            padding: 80px 8% 40px;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 40px;
+        }
+
+        .f-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        .f-col h4 {
+            color: var(--gold);
+            font-family: 'Playfair Display';
+            margin-bottom: 20px;
+        }
+
+        .f-col li {
+            list-style: none;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* --- PHONE RUN --- */
+        @media (max-width: 992px) {
+            .menu-icon {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: #0a0a0a;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-left: 1px solid var(--gold);
+                gap: 40px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .f-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .f-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="#" class="logo">ELITE ACADEMY</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+             <li><a href="#about"><i class="fas fa-university"></i> About</a></li>
+            <li><a href="courses.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+            <li><a href="teachers.html"><i class="fas fa-user-tie"></i> Teachers</a></li>
+            <li><a href="Event.html" class="active"><i class="fas fa-calendar-alt"></i> Events</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="menu-icon" id="menuBtn"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1 style="font-size: clamp(35px, 8vw, 65px); font-family: 'Playfair Display';">Elite <span
+                    style="color:var(--gold)">Gatherings</span></h1>
+            <p style="color: #666; letter-spacing: 5px; font-size: 11px; margin-top: 10px;">EXCELLENCE IS AN EVENT</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="events-grid" id="eventsGrid"></div>
+    </section>
+
+    <footer>
+        <div class="f-grid">
+            <div class="f-col">
+                <h4 style="color:#fff;">ELITE ACADEMY</h4>
+                <p style="color:#666; font-size:14px;">The pinnacle of professional learning and networking for global
+                    leaders.</p>
+            </div>
+            <div class="f-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li>Privacy</li>
+                    <li>Terms</li>
+                    <li>Admissions</li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Social</h4>
+                <ul>
+                    <li>Instagram</li>
+                    <li>LinkedIn</li>
+                    <li>Twitter</li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>HQ</h4>
+                <p style="color:#666; font-size:14px;">Silicon Valley, California<br>United States</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <span class="close" id="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- MOBILE MENU ---
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.onclick = () => {
+            navLinks.classList.toggle('active');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        }
+
+        // --- DATA (12 REAL EVENTS) ---
+        const events = [
+            { title: "AI Strategy Summit", date: "MAR 10", loc: "Dubai, UAE", time: "10:00 AM", img: "https://images.unsplash.com/photo-1591115765373-520b7a6cb022?w=800", detail: "Deep dive into the ethics and business applications of AGI with silicon valley pioneers." },
+            { title: "Design Expo 2026", date: "MAR 22", loc: "New York, USA", time: "09:00 AM", img: "https://images.unsplash.com/photo-1558403194-611308249627?w=800", detail: "Showcasing the next decade of user interface and spatial computing design." },
+            { title: "FinTech Revolution", date: "APR 05", loc: "London, UK", time: "11:30 AM", img: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800", detail: "Networking with the founders of the world's most successful neo-banks." },
+            { title: "Cyber Defense Hack", date: "APR 18", loc: "Tokyo, Japan", time: "08:00 AM", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800", detail: "48-hour live hacking challenge to test global enterprise security systems." },
+            { title: "Leadership Forum", date: "MAY 02", loc: "Paris, France", time: "10:00 AM", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800", detail: "Executive seminar on managing cross-cultural teams in a remote world." },
+            { title: "Marketing Mastery", date: "MAY 15", loc: "Singapore", time: "02:00 PM", img: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800", detail: "Learning high-conversion digital psychological triggers for premium brands." },
+            { title: "SaaS Scaling Day", date: "JUN 10", loc: "Toronto, CA", time: "09:00 AM", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800", detail: "Moving your product from $1M to $100M ARR with strategic growth hacking." },
+            { title: "Blockchain Night", date: "JUN 25", loc: "Online / Metaverse", time: "07:00 PM", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800", detail: "Connecting Web3 developers and investors in an exclusive virtual gala." },
+            { title: "Creative Retreat", date: "JUL 05", loc: "Bali, Indonesia", time: "08:00 AM", img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800", detail: "A wellness and creativity workshop for Academy Gold members." },
+            { title: "Cloud Infinity", date: "JUL 20", loc: "Berlin, Germany", time: "11:00 AM", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", detail: "Building global infrastructure that never goes down. Led by AWS experts." },
+            { title: "Growth Mindset Lab", date: "AUG 10", loc: "Sydney, AU", time: "10:00 AM", img: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800", detail: "A psychology-based seminar for elite performers and athletes." },
+            { title: "Annual Elite Gala", date: "DEC 15", loc: "Zurich, CH", time: "08:00 PM", img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800", detail: "The grand finale. Annual awards and high-end networking for the global elite." }
+        ];
+
+        const grid = document.getElementById('eventsGrid');
+        const modal = document.getElementById('modal');
+
+        function render() {
+            grid.innerHTML = events.map((ev, i) => `
+                <div class="card" onclick="openModal(${i})">
+                    <div class="img-box">
+                        <img src="${ev.img}">
+                        <div class="date-tag">${ev.date}</div>
+                    </div>
+                    <div class="content">
+                        <h3>${ev.title}</h3>
+                        <p>${ev.detail.substring(0, 80)}...</p>
+                        <div class="footer-meta">
+                            <span><i class="fas fa-location-arrow"></i> ${ev.loc}</span>
+                            <span>VIEW DETAILS <i class="fas fa-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(i) {
+            const ev = events[i];
+            document.getElementById('modalBody').innerHTML = `
+                <h2 style="color:var(--gold); font-family:'Playfair Display'; font-size:32px; margin-bottom:15px;">${ev.title}</h2>
+                <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:20px;">
+                    <p style="font-size:13px; color:var(--gold);"><strong><i class="fas fa-clock"></i> Time:</strong> ${ev.time}</p>
+                    <p style="font-size:13px; color:var(--gold);"><strong><i class="fas fa-map-marker-alt"></i> Venue:</strong> ${ev.loc}</p>
+                </div>
+                <p style="color:#aaa; line-height:1.8; margin-bottom:30px;">${ev.detail}</p>
+                <button style="width:100%; padding:15px; background:var(--gold); color:black; border:none; font-weight:bold; cursor:pointer; letter-spacing:1px; border-radius:5px;">RESERVE VIP TICKET</button>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        document.getElementById('close').onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+
+        render();
+    </script>
+</body>
+
+</html>

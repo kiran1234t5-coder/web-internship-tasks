@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamHub | Ultimate Cinema Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header id="mainHeader">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-bars-staggered mobile-btn" onclick="toggleMenu()"></i>
+            <a href="#" class="logo">Stream<span>Hub</span></a>
+        </div>
+
+        <ul class="nav-links">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="Categories Page.html"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+                <li><a href="trending.html"><i class="fa-solid fa-fire-flame-curved"></i> Trending</a></li>
+                <li><a href="My List.html"><i class="fa-solid fa-heart"></i> My List</a></li>
+                <li><a href="Contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+
+
+            <div class="search-wrapper">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search..." id="movieSearch" onkeyup="filterMovies()">
+            </div>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <h2 class="logo" style="margin-bottom: 30px;">Stream<span>Hub</span></h2>
+        <ul class="sidebar-links">
+            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fa fa-film"></i> Movies</a></li>
+            <li><a href="#"><i class="fa fa-tv"></i> TV Shows</a></li>
+            <li><a href="#"><i class="fa fa-fire"></i> Trending</a></li>
+            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+        </ul>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="#" class="active"><i class="fa fa-home"></i>Home</a>
+        <a href="#"><i class="fa fa-compass"></i>Explore</a>
+        <a href="#"><i class="fa fa-heart"></i>Watchlist</a>
+        <a href="#"><i class="fa fa-user"></i>Profile</a>
+    </nav>
+
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>The Great Return: <br>Big Buck Bunny</h1>
+            <p style="color: #ccc; margin-bottom: 25px; font-size: 1rem;">Now streaming in stunning 4K HDR.</p>
+            <button class="btn-play"><i class="fa fa-play"></i> PLAY NOW</button>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title"><i class="fa fa-fire"></i> Trending Now</h2>
+        <div class="movie-grid" id="trendingGrid"></div>
+
+        <h2 class="section-title"><i class="fa fa-bolt"></i> Action & Adventure</h2>
+        <div class="movie-grid" id="actionGrid"></div>
+
+        <h2 class="section-title"><i class="fa fa-rocket"></i> Sci-Fi Hits</h2>
+        <div class="movie-grid" id="scifiGrid"></div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <a href="#" class="logo">Stream<span>Hub</span></a>
+                <p>Your ultimate destination for the latest movies and TV shows. Experience cinema like never before.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">Originals</a></li>
+                    <li><a href="#">Trending</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Content Rules</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Download App</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-apple"></i> App Store</a></li>
+                    <li><a href="#"><i class="fab fa-google-play"></i> Google Play</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 StreamHub Ultra. Designed for Movie Lovers.
+        </div>
+    </footer>
+
+    <script src="script.js">
+
+    </script>
+</body>
+
+</html>

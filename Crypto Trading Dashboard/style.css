@@ -1,0 +1,144 @@
+<<<<<<< HEAD
+:root {
+            --accent: #b8c450;
+            --bg: #050608;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass {
+            background: rgba(18, 22, 28, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-anim {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .active-link {
+            color: var(--accent);
+            background: rgba(184, 196, 80, 0.1);
+            border-right: 4px solid var(--accent);
+        }
+
+        .price-up {
+            color: #00ffaa;
+            animation: flash-green 0.5s;
+        }
+
+        .price-down {
+            color: #ff3b5c;
+            animation: flash-red 0.5s;
+        }
+
+        @keyframes flash-green {
+            from {
+                background: rgba(0, 255, 170, 0.2);
+            }
+
+            to {
+                background: transparent;
+            }
+        }
+
+        @keyframes flash-red {
+            from {
+                background: rgba(255, 59, 92, 0.2);
+            }
+
+            to {
+                background: transparent;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+=======
+:root {
+            --accent: #b8c450;
+            --bg: #050608;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass {
+            background: rgba(18, 22, 28, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-anim {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .active-link {
+            color: var(--accent);
+            background: rgba(184, 196, 80, 0.1);
+            border-right: 4px solid var(--accent);
+        }
+
+        .price-up {
+            color: #00ffaa;
+            animation: flash-green 0.5s;
+        }
+
+        .price-down {
+            color: #ff3b5c;
+            animation: flash-red 0.5s;
+        }
+
+        @keyframes flash-green {
+            from {
+                background: rgba(0, 255, 170, 0.2);
+            }
+
+            to {
+                background: transparent;
+            }
+        }
+
+        @keyframes flash-red {
+            from {
+                background: rgba(255, 59, 92, 0.2);
+            }
+
+            to {
+                background: transparent;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+>>>>>>> ce40ef1af39780384fc02a8de32f9522a7bc7925
+        }
