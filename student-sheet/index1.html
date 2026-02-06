@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Management System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<header>
+    <h1>Student Management System</h1>
+    <p>Glass UI • Persistent Records • Smart Search</p>
+</header>
+
+<div class="grid">
+
+<div class="card">
+    <h2>Add Student</h2>
+    <input id="name" placeholder="Student Name">
+    <input id="marks" type="number" placeholder="Marks">
+    <button onclick="addStudent()">Save Record</button>
+    <div class="result" id="msg"></div>
+</div>
+
+<div class="card">
+    <h2>All Students</h2>
+    <div id="list"></div>
+</div>
+
+<div class="card">
+    <h2>Search Student</h2>
+    <input id="search" placeholder="Enter name">
+    <button onclick="searchStudent()">Search</button>
+    <div class="result" id="searchResult"></div>
+</div>
+
+<div class="card">
+    <h2>Average Marks</h2>
+    <button onclick="average()">Calculate</button>
+    <div class="result" id="avg"></div>
+</div>
+
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
