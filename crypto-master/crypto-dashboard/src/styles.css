@@ -1,0 +1,116 @@
+/* 1. Global Variables (Asaan theme management ke liye) */
+:root {
+  --primary: #00cec9;       /* Pro Teal */
+  --danger: #ef5350;        /* Red for Sell */
+  --success: #26a69a;       /* Green for Buy */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Light Mode Vars */
+:root.light-mode {
+  --bg-app: #f8f9fa;
+  --bg-card: #ffffff;
+  --text-main: #2d3436;
+  --border: #dfe6e9;
+  --shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Dark Mode Vars (Deep Terminal Look) */
+:root.dark-mode {
+  --bg-app: #0b0e11;        /* Binance-style dark */
+  --bg-card: #1e2329;
+  --text-main: #eaecef;
+  --border: #30363d;
+  --shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+/* 2. Base Styles */
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  transition: background 0.3s ease;
+}
+
+/* 3. Layout */
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+/* 4. Navigation & Tabs */
+.tabs-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* 5. Main Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px; /* Chart bada, Panel chota */
+  gap: 20px;
+}
+
+/* 6. Professional Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: var(--shadow);
+}
+
+/* 7. Pro Buttons */
+button {
+  font-family: var(--font-main);
+  border-radius: 4px;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.btn-buy { background-color: var(--success); color: white; }
+.btn-sell { background-color: var(--danger); color: white; }
+
+/* 8. Utility Classes */
+.text-mono { font-family: var(--font-mono); }
+.up { color: var(--success); }
+.down { color: var(--danger); }
