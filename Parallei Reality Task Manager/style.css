@@ -1,0 +1,156 @@
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --accent: #00f2ff;
+            --bg: #0d0d0d;
+            --panel: #1a1a1a;
+            --btn-bg: #262626;
+        }
+
+        body.optimistic {
+            --accent: #00ff88;
+        }
+
+        body.disaster {
+            --accent: #ff0055;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top HUD */
+        header {
+            padding: 20px;
+            background: #000;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .stats-box {
+            font-size: 12px;
+            color: var(--accent);
+        }
+
+        #xp-val {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Task Monitor */
+        #monitor {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+
+        .task-entry {
+            background: var(--panel);
+            border: 1px solid #333;
+            margin-bottom: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--accent);
+            animation: slideIn 0.2s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+        }
+
+        .task-entry.done {
+            opacity: 0.3;
+            filter: grayscale(1);
+            border-left-color: #555;
+        }
+
+        /* Control Matrix */
+        .matrix {
+            background: #111;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            border-top: 1px solid #333;
+        }
+
+        input {
+            grid-column: span 4;
+            background: #000;
+            border: 1px solid #444;
+            padding: 15px;
+            color: var(--accent);
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 5px;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+        }
+
+        button {
+            background: var(--btn-bg);
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px 2px;
+            font-size: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.1s;
+        }
+
+        button:active {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(2px);
+        }
+
+        .btn-prime {
+            grid-column: span 2;
+            background: var(--accent);
+            color: #000;
+            font-size: 12px;
+        }
+
+        .btn-danger {
+            color: #ff0055;
+            border-color: #ff0055;
+        }
+
+        .btn-info {
+            color: #00f2ff;
+            border-color: #00f2ff;
+        }
+
+        .label {
+            grid-column: span 4;
+            font-size: 8px;
+            color: #666;
+            text-align: center;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }

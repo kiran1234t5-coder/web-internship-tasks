@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>All-Function Command Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="realistic">
+
+    <header>
+        <div class="stats-box">
+            STATUS: <span id="mode-id">STABLE</span><br>
+            XP_CORE: <span id="xp-val">0000</span>
+        </div>
+        <div style="text-align: right">
+            <div id="date-time" style="font-size: 10px; opacity: 0.6;"></div>
+            <div style="font-size: 10px; color: var(--accent);">REALITY_OS V14</div>
+        </div>
+    </header>
+
+    <div id="monitor"></div>
+
+    <div class="matrix">
+        <input type="text" id="taskInput" placeholder="READY FOR INPUT..." autocomplete="off">
+
+        <button class="btn-prime" onclick="addTask()">[ DEPLOY_TASK ]</button>
+        <button class="btn-prime" style="background: #333; color: #fff;" onclick="randomReality()">[ RANDOM_WARP
+            ]</button>
+
+        <div class="label">REALITY SELECTION</div>
+        <button onclick="changeMode('optimistic')">OPTIMISM</button>
+        <button onclick="changeMode('realistic')">STABLE</button>
+        <button onclick="changeMode('disaster')">CHAOS</button>
+        <button onclick="undo()">UNDO_PREV</button>
+
+        <div class="label">DATABASE FILTERS</div>
+        <button onclick="setFilter('all')">ALL_DATA</button>
+        <button onclick="setFilter('pending')">ACTIVE</button>
+        <button onclick="setFilter('completed')">SYNCED</button>
+        <button class="btn-danger" onclick="purge()">PURGE_ALL</button>
+
+        <div class="label">SYSTEM TOOLS</div>
+        <button class="btn-info" onclick="showStats()">CORE_STATS</button>
+        <button class="btn-info" onclick="downloadBackup()">BACKUP</button>
+        <button class="btn-info" onclick="toggleVibration()">VIBE_TOGGLE</button>
+        <button class="btn-info" onclick="location.reload()">REBOOT</button>
+    </div>
+
+   <script src="script.js"></script>
+</body>
+
+</html>
