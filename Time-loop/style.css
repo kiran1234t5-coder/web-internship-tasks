@@ -1,0 +1,221 @@
+ @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+
+        :root {
+            --accent: #00f2ff;
+            --past: #ff0055;
+            --future: #00ff88;
+            --royal: #ffcc00;
+            --bg: #00050a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1500px;
+            background-image: radial-gradient(circle at center, #001529 0%, #000 100%);
+        }
+
+        /* --- 3D INTERACTIVE HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--accent);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 50px rgba(0, 242, 255, 0.2);
+        }
+
+        .hud-name {
+            font-size: 20px;
+            letter-spacing: 8px;
+            font-weight: 900;
+            color: var(--royal);
+            text-shadow: 0 0 15px var(--royal);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .input-box {
+            display: flex;
+            background: #000;
+            border: 2px solid #222;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            padding: 5px 15px;
+            outline: none;
+            font-family: 'Orbitron';
+            width: 200px;
+        }
+
+        /* --- MECHANICAL 3D BUTTONS --- */
+        .btn {
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 0 #000, 0 8px 15px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 #000;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .btn.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 900;
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        /* --- 3D CENTER OBJECT --- */
+        .center-stage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #clock {
+            font-size: 120px;
+            opacity: 0.1;
+            letter-spacing: 20px;
+            font-weight: 900;
+        }
+
+        .orb {
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(45deg) rotateY(45deg);
+            animation: rotate3D 10s linear infinite;
+            box-shadow: 0 0 50px var(--accent), inset 0 0 50px var(--accent);
+        }
+
+        @keyframes rotate3D {
+            from {
+                transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        /* --- 3D CARDS LAYOUT --- */
+        #arena {
+            margin-top: 120px;
+            height: calc(100vh - 120px);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            transform: rotateY(-15deg) rotateX(10deg);
+            transform-style: preserve-3d;
+            box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            transform: rotateY(0deg) rotateX(0deg) translateZ(100px);
+            border-color: var(--accent);
+            background: rgba(0, 242, 255, 0.1);
+        }
+
+        .card.past {
+            border-top: 5px solid var(--past);
+        }
+
+        .card.present {
+            border-top: 5px solid var(--accent);
+        }
+
+        .card.future {
+            border-top: 5px solid var(--future);
+        }
+
+        .card-tag {
+            font-size: 10px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-text {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            transform: translateZ(30px);
+        }
+
+        .del {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #555;
+            cursor: pointer;
+            text-align: right;
+            display: block;
+        }
+
+        .del:hover {
+            color: var(--past);
+        }
+
+        /* Custom Scroll */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiran Shahzadi | 3D Final Reality</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="hud-name">KIRAN SHAHZADI</div>
+        <div class="controls">
+            <div class="input-box">
+                <input type="text" id="taskInp" placeholder=">> INPUT_NODE_DATA">
+                <button class="btn" style="border:none; color:var(--royal);" onclick="App.commit()">COMMIT</button>
+            </div>
+            <button class="btn" onclick="App.shuffle()" style="border-color:var(--royal)">SHUFFLE_3D</button>
+            <button class="btn active" id="b-all" onclick="App.filter('all')">ALL_UNIVERSE</button>
+            <button class="btn" id="b-past" onclick="App.filter('past')">PAST</button>
+            <button class="btn" id="b-present" onclick="App.filter('present')">PRESENT</button>
+            <button class="btn" id="b-future" onclick="App.filter('future')">FUTURE</button>
+        </div>
+    </header>
+
+    <div class="center-stage">
+        <div class="orb"></div>
+        <div id="clock">00:00:00</div>
+    </div>
+
+    <div id="arena"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
