@@ -1,0 +1,282 @@
+  :root {
+            --bg: #ffffff;
+            --card: #ffffff;
+            --text: #000000;
+            --border: #dbdbdb;
+            --accent: #0095f6;
+            --secondary: #8e8e8e;
+            --skeleton: #f2f2f2;
+            --gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        [data-theme="dark"] {
+            --bg: #000000;
+            --card: #000000;
+            --text: #ffffff;
+            --border: #262626;
+            --skeleton: #121212;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: 0.3s;
+        }
+
+        /* --- Framer Motion Like Animations --- */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Header & Nav --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 2000;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 55px;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .nav-item {
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-item:active {
+            transform: scale(0.8);
+        }
+
+        /* --- View System --- */
+        main {
+            margin-top: 50px;
+            margin-bottom: 55px;
+            min-height: calc(100vh - 105px);
+        }
+
+        .view {
+            display: none;
+        }
+
+        .active-view {
+            display: block;
+        }
+
+        /* --- Stories --- */
+        .stories {
+            display: flex;
+            overflow-x: auto;
+            padding: 12px 10px;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+
+        .story-unit {
+            min-width: 68px;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .ring {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            padding: 2px;
+            background: var(--gradient);
+            border: 2px solid var(--bg);
+        }
+
+        .ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--card);
+        }
+
+        /* --- Posts --- */
+        .post-card {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .post-header {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-img-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: var(--skeleton);
+        }
+
+        .post-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- Optimistic Heart Animation --- */
+        .heart-pop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-size: 5rem;
+            pointer-events: none;
+        }
+
+        .animate-heart {
+            animation: heartPop 0.8s ease-out;
+        }
+
+        @keyframes heartPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* --- Messenger UI --- */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 105px);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg-bubble {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .msg-sent {
+            align-self: flex-end;
+            background: var(--accent);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg-received {
+            align-self: flex-start;
+            background: var(--skeleton);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+        }
+
+        /* --- Profile Tabs --- */
+        .tabs {
+            display: flex;
+            border-top: 1px solid var(--border);
+        }
+
+        .tab-icon {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .tab-icon.active {
+            color: var(--text);
+            border-top: 1px solid var(--text);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .grid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background: var(--skeleton);
+        }
+
+        .btn-heart.liked {
+            color: #ff3040;
+            animation: bounce 0.3s;
+        }
+
+        @keyframes bounce {
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }

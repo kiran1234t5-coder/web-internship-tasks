@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instagram Pro - Kiran Shahzadi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="light">
+
+    <header id="app-header">
+        <div style="font-size: 1.5rem; font-weight: bold; font-style: italic;">Instagram</div>
+        <div style="display:flex; gap:20px; align-items:center;">
+            <i class="fas fa-moon nav-item" id="theme-btn"></i>
+            <i class="fab fa-facebook-messenger nav-item" onclick="navigate('chat')"></i>
+        </div>
+    </header>
+
+    <main>
+        <section id="feed-view" class="view active-view fade-in">
+            <div class="stories" id="story-container"></div>
+            <div id="feed-container"></div>
+            <div id="loader" style="text-align:center; padding: 20px; color: var(--secondary);"><i
+                    class="fas fa-spinner fa-spin"></i></div>
+        </section>
+
+        <section id="explore-view" class="view fade-in">
+            <div style="padding:10px;"><input type="text" placeholder="Search"
+                    style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--skeleton);">
+            </div>
+            <div class="grid" id="explore-grid"></div>
+        </section>
+
+        <section id="chat-view" class="view fade-in">
+            <div class="chat-container">
+                <div
+                    style="padding:15px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:15px;">
+                    <i class="fas fa-arrow-left" onclick="navigate('feed')"></i>
+                    <img src="https://i.pravatar.cc/150?u=9" style="width:30px; border-radius:50%;">
+                    <strong>Zain Ali</strong>
+                </div>
+                <div class="chat-messages" id="chat-box">
+                    <div class="msg-bubble msg-received">Hey Kiran! Project kab tak complete hoga?</div>
+                    <div class="msg-bubble msg-sent">Bas 5 mins! React style UI deploy ho raha hai. 🚀</div>
+                </div>
+                <div style="padding:10px; border-top:1px solid var(--border); display:flex; gap:10px;">
+                    <input type="text" id="chat-input" placeholder="Message..."
+                        style="flex:1; border:none; background:var(--skeleton); padding:10px 15px; border-radius:25px;">
+                    <button onclick="sendMessage()"
+                        style="background:none; border:none; color:var(--accent); font-weight:bold;">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile-view" class="view fade-in">
+            <div style="padding:20px 15px; display:flex; gap:25px; align-items:center;">
+                <img src="https://i.pravatar.cc/150?u=kiran"
+                    style="width:80px; height:80px; border-radius:50%; border:2px solid var(--border);">
+                <div style="flex:1">
+                    <h3 style="margin:0">Kiran Shahzadi</h3>
+                    <div style="display:flex; gap:15px; font-size:13px; margin-top:10px;">
+                        <span><strong>45</strong> posts</span>
+                        <span><strong>12k</strong> followers</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs">
+                <div class="tab-icon active" onclick="switchProfileTab('posts', this)"><i class="fas fa-th"></i></div>
+                <div class="tab-icon" onclick="switchProfileTab('saved', this)"><i class="far fa-bookmark"></i></div>
+            </div>
+            <div class="grid" id="profile-grid"></div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <i class="fas fa-home nav-item" onclick="navigate('feed')"></i>
+        <i class="fas fa-search nav-item" onclick="navigate('explore')"></i>
+        <i class="far fa-plus-square nav-item" onclick="triggerPost()"></i>
+        <i class="fas fa-video nav-item" onclick="alert('Reels Logic Initialized...')"></i>
+        <i class="fas fa-user-circle nav-item" onclick="navigate('profile')"></i>
+    </nav>
+
+    <input type="file" id="image-upload" class="hidden" accept="image/*" onchange="handleUpload(event)">
+
+    <script src="app.js">
+       
+    </script>
+</body>
+
+</html>
